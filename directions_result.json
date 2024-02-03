@@ -1,0 +1,121 @@
+[
+    {
+        "bounds": {
+            "northeast": {
+                "lat": 40.7684112,
+                "lng": -73.9790817
+            },
+            "southwest": {
+                "lat": 40.75922620000001,
+                "lng": -73.9846269
+            }
+        },
+        "copyrights": "Map data \u00a92024 Google",
+        "legs": [
+            {
+                "distance": {
+                    "text": "0.9 mi",
+                    "value": 1412
+                },
+                "duration": {
+                    "text": "7 mins",
+                    "value": 408
+                },
+                "duration_in_traffic": {
+                    "text": "5 mins",
+                    "value": 278
+                },
+                "end_address": "Times Sq, New York, NY, USA",
+                "end_location": {
+                    "lat": 40.75922620000001,
+                    "lng": -73.9846269
+                },
+                "start_address": "Central Park, New York, NY, USA",
+                "start_location": {
+                    "lat": 40.7681844,
+                    "lng": -73.9814147
+                },
+                "steps": [
+                    {
+                        "distance": {
+                            "text": "0.1 mi",
+                            "value": 197
+                        },
+                        "duration": {
+                            "text": "1 min",
+                            "value": 67
+                        },
+                        "end_location": {
+                            "lat": 40.7677123,
+                            "lng": -73.9817016
+                        },
+                        "html_instructions": "Head <b>northwest</b> toward <b>Central Park W</b>",
+                        "polyline": {
+                            "points": "cpywFxnpbMC@A@C@C@C@ABCBC@ABCBADEPAH?FAH?F?H?H?F@F@F@D@D@DBDBD@@?@BD@??@@??@B@BB@@B@B@@@B?B@B?@?@?B?@?@?@?@?@?@?@?@?@A@?@?@?@?@A@?BABA@?BA@C@ABA@CBC@C@CBC@E?C@E@E?C@E?E@E?E?E?G?CAOAG?C"
+                        },
+                        "start_location": {
+                            "lat": 40.7681844,
+                            "lng": -73.9814147
+                        },
+                        "travel_mode": "DRIVING"
+                    },
+                    {
+                        "distance": {
+                            "text": "0.2 mi",
+                            "value": 247
+                        },
+                        "duration": {
+                            "text": "1 min",
+                            "value": 64
+                        },
+                        "end_location": {
+                            "lat": 40.7668483,
+                            "lng": -73.9790817
+                        },
+                        "html_instructions": "Exit the traffic circle onto <b>W 59th St</b>/<wbr/><b>Central Park S</b>",
+                        "polyline": {
+                            "points": "emywFrppbMGs@AI?C?G?E?Ej@eBn@sBPi@Pg@HWPi@XgA"
+                        },
+                        "start_location": {
+                            "lat": 40.7677123,
+                            "lng": -73.9817016
+                        },
+                        "travel_mode": "DRIVING"
+                    },
+                    {
+                        "distance": {
+                            "text": "0.6 mi",
+                            "value": 968
+                        },
+                        "duration": {
+                            "text": "5 mins",
+                            "value": 277
+                        },
+                        "end_location": {
+                            "lat": 40.75922620000001,
+                            "lng": -73.9846269
+                        },
+                        "html_instructions": "Turn <b>right</b> onto <b>7th Ave</b><div style=\"font-size:0.9em\">Pass by Starbucks (on the right in 0.5 mi)</div>",
+                        "maneuver": "turn-right",
+                        "polyline": {
+                            "points": "ygywFf`pbM~B|AhC|AfCdBd@ZtA|@vBxA`CzAxB`B|BxAfAr@RNJFRNNJjBlAfAr@JFJH^TNJXPPLr@b@D@DB"
+                        },
+                        "start_location": {
+                            "lat": 40.7668483,
+                            "lng": -73.9790817
+                        },
+                        "travel_mode": "DRIVING"
+                    }
+                ],
+                "traffic_speed_entry": [],
+                "via_waypoint": []
+            }
+        ],
+        "overview_polyline": {
+            "points": "cpywFxnpbM[REFGVCb@@b@FXNTJJXFZATKJKHQFk@MkB?W~BkHZaAXgA~B|AhC|AfCdBzBxAxFtDxB`B|BxAzAbA^VnEtCtA|@pAv@"
+        },
+        "summary": "7th Ave",
+        "warnings": [],
+        "waypoint_order": []
+    }
+]
