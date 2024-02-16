@@ -3,7 +3,7 @@ import json
 import datetime 
 import googlemaps
 
-class traffic_data:
+class TrafficData:
     cache_path = "./cache_traffic/"
 
     def __init__(self,graph, api_key,path_file="default.json",cache=True ) -> None:

@@ -7,9 +7,13 @@ import os
 
 class Routing:
     _route_colors = ['r', 'g', 'b', 'c', 'm', 'y']
+    Dijkstra = "dijkstra"
+    AStart = "astar"
 
-    def __init__(self, start_point, dist=1000):
+    def __init__(self, start_point, dist=1000,algorithm=Dijkstra):
+        print(f'\n\nAlgorithm: {algorithm}\n\n Distance: {dist}')
         self.graph = ox.graph_from_point(start_point, network_type="all", dist=dist)
+        self.algorithm = algorithm
 
     def plot_graph(self, paths):
         route_colors = [self._route_colors[i % len(self._route_colors)] for i in range(len(paths))]
@@ -75,3 +79,9 @@ class Routing:
                 total_time += edge_data.get('time', 0)
 
         return total_length, total_time, routes
+    
+    def _find_path(self, origin_node, destination_node):
+        if self.algorithm == 'astar':
+            return nx.astar_path(self.graph, origin_node, destination_node, weight='length')
+        else:  # Default to Dijkstra's algorithm
+            return nx.shortest_path(self.graph, origin_node, destination_node, weight='length')
