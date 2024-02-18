@@ -20,10 +20,10 @@ def get_route():
     destinations = list(zip(latitudes, longitudes))
 
     destinations = [(float(lat), float(lon)) for lat, lon in zip(latitudes, longitudes)]
-    router = Routing(destinations[0])
+    router = Routing(destinations[0],dist=5000)
     router.apply_traffic_data("cache_traffic/real-response-form-google.json")
-    best_path,best_length_meter,best_time_sec, = router.find_routing(destinations)
-    return jsonify({'route_coords': best_path, 'route_length': best_length_meter,'route_time':best_time_sec})
+    route_coords,best_path,best_length_meter,best_time_sec, = router.find_routing(destinations)
+    return jsonify({'route_coords': route_coords, 'route_length': best_length_meter,'route_time':best_time_sec})
 
 
 if __name__ == '__main__':
