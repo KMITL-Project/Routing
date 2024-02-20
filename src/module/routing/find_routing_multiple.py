@@ -5,16 +5,23 @@ import json
 from itertools import permutations
 from geopy.distance import great_circle
 import os 
+from math import radians, cos, sin, sqrt, atan2, pi
 
 class Routing:
     _route_colors = ['r', 'g', 'b', 'c', 'm', 'y']
     Dijkstra = "dijkstra"
     AStart = "astar"
+    R = 6371.0
 
-    def __init__(self, start_point, dist=1000,algorithm=Dijkstra):
-        print(f'\n\nAlgorithm: {algorithm}\n\nDistance: {dist}')
-        self.graph = ox.graph_from_point(start_point, network_type="all", dist=dist)
+    def __init__(self, destinations, dist=0,algorithm=Dijkstra):
         self.algorithm = algorithm
+        self.destinations = destinations
+        if dist == 0:
+            print(f'dist = {dist} auto calculate distance')
+            dist = self._calculate_max_distance()
+        self.graph = ox.graph_from_point(destinations[0], network_type="all", dist=dist)
+
+        print(f'\nAlgorithm: {algorithm}\nDistance: {dist}')
 
     def plot_graph(self, route_paths):
         route_colors = [self._route_colors[i % len(self._route_colors)] for i in range(len(route_paths))]
@@ -33,9 +40,15 @@ class Routing:
         else:
             print(f"Cache file {cache_path} does not exist. Traffic data not applied.")
 
-    def find_routing(self, destinations=[]):
+    def find_routing(self):
+        """
+        The function `find_routing` calculates the nearest nodes for a list of destinations and then
+        finds the best route based on these nodes.
+        :return: The `find_routing` method returns four values: `route_coords`, `best_path`,
+        `best_length_meter`, and `best_time_sec`.
+        """
         nearest_nodes = {}
-        for dest in destinations:
+        for dest in self.destinations:
             try:
                 nearest_node = ox.distance.nearest_nodes(self.graph, dest[1], dest[0])
                 nearest_nodes[dest] = nearest_node
@@ -44,11 +57,38 @@ class Routing:
                 continue
 
         if not nearest_nodes:
-            return None, 0, 0  # Handle case where no nearest nodes were found
+            return None, 0, 0  
 
         route_coords, best_path, best_length_meter, best_time_sec = self._find_best_route(nearest_nodes)
         return route_coords, best_path, best_length_meter, best_time_sec
     
+
+    def _calculate_max_distance(self):
+        latitudes = [lat for lat, lon in self.destinations]
+        longitudes = [lon for lat, lon in self.destinations]
+
+        if not latitudes or not longitudes or len(latitudes) != len(longitudes) or len(latitudes) < 2:
+            return 0
+
+        lat1 = radians(latitudes[0])
+        lon1 = radians(longitudes[0])
+        max_distance = 0  
+
+        for lat, lon in zip(latitudes[1:], longitudes[1:]):
+            lat2 = radians(lat)
+            lon2 = radians(lon)
+
+            delta_lat = lat2 - lat1
+            delta_lon = lon2 - lon1
+
+            a = sin(delta_lat / 2)**2 + cos(lat1) * cos(lat2) * sin(delta_lon / 2)**2
+            c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            distance = self.R * c
+            max_distance = max(max_distance, distance)
+        if max_distance == 0:
+            return 0
+        return round((max_distance*1000)+1000)
+        
     def _get_node_coordinates(self,node_ids):
         coords = []
         for node_id in node_ids:
