@@ -96,9 +96,9 @@ class Routing:
             coords.append((node_data['y'], node_data['x']))  # Lat, Lon
         return coords
     
-    def _haversine(u, v, graph):
-        u_latlon = (graph.nodes[u]['y'], graph.nodes[u]['x'])
-        v_latlon = (graph.nodes[v]['y'], graph.nodes[v]['x'])
+    def _haversine(self,u, v):
+        u_latlon = (self.graph.nodes[u]['y'], self.graph.nodes[u]['x'])
+        v_latlon = (self.graph.nodes[v]['y'], self.graph.nodes[v]['x'])
         return great_circle(u_latlon, v_latlon).meters
 
     def _find_best_route(self, nearest_nodes):
@@ -128,7 +128,7 @@ class Routing:
         for i in range(len(destinations) - 1):
             origin_node = nearest_nodes[destinations[i]]
             destination_node = nearest_nodes[destinations[i + 1]]
-            route = nx.shortest_path(self.graph, origin_node, destination_node, weight='length')
+            route = self._find_path(origin_node=origin_node,destination_node=destination_node,weight="time")
             routes.append(route)
 
             for j in range(len(route) - 1):
@@ -138,10 +138,12 @@ class Routing:
 
         return total_length, total_time, routes
     
-    def _find_path(self, origin_node, destination_node):
+    def _find_path(self, origin_node, destination_node ,weight='length'):
         if self.algorithm == 'astar':
             def heuristic(u, v):
-                return self._haversine(u, v, self.graph)
-            return nx.astar_path(self.graph, origin_node, destination_node, weight='length',heuristic=heuristic)
+                return self._haversine(u, v)
+            return nx.astar_path(self.graph, origin_node, destination_node, weight=weight,heuristic=heuristic)
         else:  # Default to Dijkstra's algorithm
-            return nx.shortest_path(self.graph, origin_node, destination_node, weight='length')
+            # return nx.shortest_path(self.graph, origin_node, destination_node, weight=weight)
+            return nx.dijkstra_path(self.graph, origin_node, destination_node, weight=weight)
+

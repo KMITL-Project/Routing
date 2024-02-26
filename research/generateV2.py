@@ -22,7 +22,6 @@ def calculate_base_travel_times(graph):
             speed_limit = 30  # Default if not a digit or if unspecified
         length_in_km = data['length'] / 1000  # Convert length from meters to kilometers
         data['base_travel_time'] = (length_in_km / speed_limit) * 3600  # Calculate travel time in seconds
-        print(data)
 
 def fetch_traffic_data_realistic(graph, current_hour, day_of_week):
     """
@@ -66,15 +65,39 @@ def save_traffic_data_to_file(data, filename):
 
 # Example usage
 location_point = (13.795359, 100.706923)
-graph = ox.graph_from_point(location_point, network_type="drive", dist=10000)  # Use a smaller distance for demonstration
+graph = ox.graph_from_point((13.795535, 100.707066), network_type="all", dist=5000)
 calculate_base_travel_times(graph)
 
-# Simulate for a specific day and time
-day_of_week = "Monday"
-current_hour = 8
-adjusted_travel_times = fetch_traffic_data_realistic(graph, current_hour, day_of_week)
+starting_date = datetime(2024, 1, 1)
 
-# Save the generated traffic data to a file
-filename = f"traffic_data_{day_of_week}_{current_hour}.json"
-save_traffic_data_to_file(adjusted_travel_times, filename)
-print(f"Traffic data saved to {filename}.")
+time_periods = {
+    '6:00': 6, 
+    '7:00': 7,
+    '8:00': 8,
+    '11:00': 11, 
+    '12:00': 12, 
+    '13:00': 13, 
+    '15:00': 15,
+    '16:00': 16,
+    '17:00': 17,
+}
+
+for day in range(1, 21):  # 20 days
+    date = starting_date + timedelta(days=day-1)
+    day_name = date.strftime("%A")  
+    for period, hour in time_periods.items():
+        print(day_name,period,hour)
+        adjusted_travel_times = fetch_traffic_data_realistic(graph, hour, day_name)
+        filename = f"./traffic_data/traffic_data_{day}_{day_name}_{period}.json"
+        save_traffic_data_to_file(adjusted_travel_times, filename)
+        print(f"Traffic data saved to {filename}.")
+        
+# # Simulate for a specific day and time
+# day_of_week = "Monday"
+# current_hour = 1
+# adjusted_travel_times = fetch_traffic_data_realistic(graph, current_hour, day_of_week)
+
+# # Save the generated traffic data to a file
+# filename = f"traffic_data_{day_of_week}_{current_hour}.json"
+# save_traffic_data_to_file(adjusted_travel_times, filename)
+# print(f"Traffic data saved to {filename}.")

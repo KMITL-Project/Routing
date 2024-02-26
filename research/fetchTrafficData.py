@@ -34,10 +34,11 @@ def fetch_traffic_data(graph, api_key, traffic_data_file):
             print("Fetched direction API", count)
         except Exception as e:
             print(f"Error fetching traffic data for edge {u},{v}: {e}")
-            traffic_data[f"{u},{v}"] = 1  # Default to no traffic multiplier in case of error
+            # traffic_data[f"{u},{v}"] = 1
 
     # Save traffic data to file
     with open(traffic_data_file, 'w') as file:
         json.dump(traffic_data, file)
     
     return traffic_data
+
