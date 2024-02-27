@@ -3,7 +3,7 @@ from module.routing.find_routing_multiple import Routing
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,origins="*")
 
 @app.route('/')
 def home():
