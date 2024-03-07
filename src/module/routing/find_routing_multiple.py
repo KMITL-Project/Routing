@@ -13,7 +13,7 @@ class Routing:
     AStart = "astar"
     R = 6371.0
 
-    def __init__(self, destinations, dist=0,algorithm=Dijkstra):
+    def __init__(self, destinations, dist=0,algorithm=AStart):
         self.algorithm = algorithm
         self.destinations = destinations
         if dist == 0:
